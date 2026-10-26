@@ -1,0 +1,260 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ArtesanIA · Primer contacto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna de lectura; cada bloque es una ficha de trabajo con pasos, por qué y para qué */
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --fg:#17242b; --muted:#56656d; --line:#d5dde1;
+  --accent:#1f6a84; --accent-soft:#e2eff4; --ia:#a35a12; --ia-soft:#f7ebde; --ok:#2e7d4f;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10181c; --surface:#172228; --fg:#e4ecef; --muted:#9db0b8; --line:#2b3a42;
+  --accent:#6bb7d2; --accent-soft:#1b3440; --ia:#e3a35f; --ia-soft:#3a2a1a; --ok:#6fcf97; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10181c; --surface:#172228; --fg:#e4ecef; --muted:#9db0b8; --line:#2b3a42;
+  --accent:#6bb7d2; --accent-soft:#1b3440; --ia:#e3a35f; --ia-soft:#3a2a1a; --ok:#6fcf97; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+.wrap{max-width:46rem;margin:0 auto;padding-block:1.5rem 4rem;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:grid;gap:1.25rem}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(1.9rem,6vw,2.6rem);font-weight:800}
+h2{font-size:1.35rem;font-weight:800}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+header{display:grid;gap:.5rem;padding-block:.5rem}
+header p{margin:0;color:var(--muted);max-width:60ch}
+.consigna{background:var(--accent-soft);border-radius:12px;padding:1rem 1.1rem;display:grid;gap:.5rem}
+.consigna p{margin:0}
+.bloque{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.1rem;display:grid;gap:.85rem;min-width:0}
+.bloque > p{margin:0}
+.pq{display:grid;gap:.25rem;font-size:.95rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:.7rem}
+.pq b{color:var(--fg)}
+ol.pasos{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+label{font-weight:700;font-size:.95rem}
+input[type=text],textarea,select{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem}
+textarea{min-height:4.5rem;resize:vertical}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.campo{display:grid;gap:.3rem;min-width:0}
+.prompt{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem}
+.prompt code{font-family:var(--mono);font-size:.9rem;flex:1 1 14rem;min-width:0;overflow-wrap:anywhere}
+button{font:inherit;font-weight:700;font-size:.92rem;border:0;border-radius:8px;padding:.45rem .8rem;background:var(--accent);color:var(--surface);cursor:pointer}
+button.sec{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.frase{display:grid;gap:.45rem;padding:.75rem;border:1px solid var(--line);border-radius:10px}
+.frase .txt{font-weight:700}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:560px){.dos{grid-template-columns:1fr}}
+.toggle{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;font-size:.92rem}
+.toggle input{accent-color:var(--ia);width:1.1rem;height:1.1rem}
+.marcador{display:flex;gap:.75rem;flex-wrap:wrap}
+.marcador div{flex:1 1 9rem;border-radius:10px;padding:.6rem .8rem;display:grid}
+.marcador .ia{background:var(--ia-soft);color:var(--ia)}
+.marcador .gr{background:var(--accent-soft);color:var(--accent)}
+.marcador b{font-family:var(--display);font-size:1.8rem;line-height:1;font-variant-numeric:tabular-nums}
+.marcador span{font-size:.85rem;font-weight:700}
+details{border:1px solid var(--line);border-radius:8px;padding:.55rem .75rem}
+summary{cursor:pointer;font-weight:700}
+details ul{margin:.5rem 0 0;padding-left:1.2rem}
+.nota{font-size:.92rem;color:var(--muted);margin:0}
+.plenario{border-style:dashed}
+.final{display:grid;gap:.6rem}
+.estado{font-size:.9rem;color:var(--ok);min-height:1.2em}
+#salida{font-family:var(--mono);font-size:.85rem;min-height:8rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">ArtesanIA docente · Encuentro 1</span>
+  <h1>Primer contacto: ¿cómo creés que funciona la IA?</h1>
+  <p>Hoy no hay explicación previa. Investigamos la IA que ya usan, juntamos evidencia y al final cada uno explica cómo cree que funciona.</p>
+</header>
+
+<section class="consigna">
+  <p><b>Cómo trabajamos y qué necesitan.</b> En equipo (pareja o trío), desde el celular. Dejen abierta esta página para seguir los pasos y anotar (lo que escriban queda guardado solo en su navegador) y tengan otra pestaña o app lista para probar con la IA y sacar capturas de pantalla.</p>
+  <p><b>Con qué IA.</b> Con cualquier asistente que ya usen en el celular o en el navegador (ChatGPT, Gemini, Claude, Copilot). Si alguien nunca usó uno o no tiene cuenta, comparte el celular con su equipo o usa el chatbot del laboratorio.</p>
+  <p><b>La consigna.</b> Investiguen la IA como si fuera un fenómeno desconocido: anticipen, prueben, anoten y comparen.</p>
+  <p><b>La restricción.</b> No se puede buscar cómo funciona, ni en internet ni preguntándole a ella. Para verificar un dato, sí. Lo que afirmen tiene que salir de lo que observaron, y de cada evidencia guardan una captura.</p>
+  <p><b>El tablero.</b> Hay uno solo, todos contra la IA. Sin captura, no suma.</p>
+</section>
+
+<section class="bloque" id="b1">
+  <span class="eyebrow">Bloque 1</span>
+  <h2>Punto de partida</h2>
+  <ol class="pasos">
+    <li>Párense en la fila del termómetro: de nunca usé IA a la uso todos los días.</li>
+    <li>Completen la ficha de desafío en el formulario del aula. La última pregunta es su hipótesis: cómo creen que funciona la IA, en tres líneas.</li>
+    <li>Cuenten su desafío en 30 segundos.</li>
+  </ol>
+  <div class="pq"><span><b>Por qué:</b> para saber desde dónde arranca cada uno.</span><span><b>Para qué:</b> su desafío es el hilo de todo el laboratorio.</span></div>
+</section>
+
+<section class="bloque" id="b2">
+  <span class="eyebrow">Bloque 2 · Misión 1</span>
+  <h2>Predecí antes de preguntar</h2>
+  <ol class="pasos">
+    <li>Cada uno completa las cinco frases con lo primero que se le ocurra.</li>
+    <li>Después tocan Copiar en cada frase y lo pegan en la IA: va el pedido con la frase incluida.</li>
+    <li>Marquen si alguien del grupo puso lo mismo que la IA.</li>
+  </ol>
+  <div id="frases"></div>
+  <div class="marcador" aria-live="polite">
+    <div class="ia"><b id="ptsIA">0</b><span>Puntos para la IA (coincidió con alguien)</span></div>
+    <div class="gr"><b id="ptsGR">0</b><span>Puntos para el grupo (nadie coincidió)</span></div>
+  </div>
+  <div class="pq"><span><b>Por qué:</b> comparar lo que ponemos nosotros con lo que pone ella muestra qué hace la IA.</span><span><b>Para qué:</b> ver en qué frases gana y en cuáles no, y pensar por qué.</span></div>
+</section>
+
+<section class="bloque" id="b3">
+  <span class="eyebrow">Bloque 3 · Misión 2</span>
+  <h2>Hacela equivocar</h2>
+  <ol class="pasos">
+    <li>Cada uno, en su turno, elige un tema que conoce muy bien: su materia, Ushuaia, el IPES, un libro que tenga a mano.</li>
+    <li>Traten de que la IA afirme algo falso con total seguridad.</li>
+    <li>Anoten la evidencia. Si no lo logran, también es un dato: anoten qué hizo en su lugar.</li>
+  </ol>
+  <details><summary>Pistas si no sale</summary>
+    <ul>
+      <li>Pedile bibliografía sobre un tema local, con autor, año, título exacto y editorial.</li>
+      <li>Pedile una cita textual con número de página.</li>
+      <li>Hacele una pregunta que dé por cierto algo que nunca pasó.</li>
+      <li>Pedile que cuente letras de una palabra o que resuelva un acertijo cambiado.</li>
+    </ul>
+  </details>
+  <div class="campo"><label for="m2q">Qué le preguntamos</label><input type="text" id="m2q"></div>
+  <div class="campo"><label for="m2a">Qué afirmó</label><textarea id="m2a"></textarea></div>
+  <div class="campo"><label for="m2f">Cómo sabemos que es falso</label><input type="text" id="m2f"></div>
+  <div class="campo"><label for="m2d">¿Usó alguna palabra de duda?</label>
+    <select id="m2d"><option value="">Elegir</option><option>No, lo dijo con total seguridad</option><option>Sí, dudó o avisó</option><option>No se equivocó: buscó, dudó o se negó</option></select></div>
+  <p class="nota">No pregunten por personas reales que no sean conocidas públicamente.</p>
+  <div class="pq"><span><b>Por qué:</b> un error que podemos demostrar dice más que cien aciertos.</span><span><b>Para qué:</b> saber qué controlar cuando la usemos en clase.</span></div>
+</section>
+
+<section class="bloque" id="b4">
+  <span class="eyebrow">Bloque 4 · Misión 3</span>
+  <h2>Misma pregunta, otra respuesta</h2>
+  <ol class="pasos">
+    <li>Cada pregunta va dos veces en el mismo asistente, en conversaciones nuevas, y una vez en otro asistente.</li>
+    <li>Repártanse los celulares. Si alguien no tiene un segundo asistente, usa el chatbot del laboratorio.</li>
+  </ol>
+  <div class="prompt"><code id="p3a">Proponé una actividad para (el desafío de alguien del grupo).</code><button type="button" data-copy="p3a">Copiar</button></div>
+  <div class="dos">
+    <div class="campo"><label for="m3a1">Qué cambió</label><textarea id="m3a1"></textarea></div>
+    <div class="campo"><label for="m3a2">Qué se mantuvo</label><textarea id="m3a2"></textarea></div>
+  </div>
+  <div class="prompt"><code id="p3b">¿Qué noticias hay hoy en Ushuaia?</code><button type="button" data-copy="p3b">Copiar</button></div>
+  <div class="dos">
+    <div class="campo"><label for="m3b1">Qué cambió</label><textarea id="m3b1"></textarea></div>
+    <div class="campo"><label for="m3b2">¿Citó fuentes?</label><textarea id="m3b2"></textarea></div>
+  </div>
+  <div class="campo"><label for="m3c">Sin preguntárselo, ¿cómo se dan cuenta de si buscó en internet?</label><textarea id="m3c"></textarea></div>
+  <div class="pq"><span><b>Por qué:</b> si fuera una base de respuestas guardadas, contestaría siempre lo mismo.</span><span><b>Para qué:</b> entender por qué dos estudiantes reciben respuestas distintas.</span></div>
+</section>
+
+<section class="bloque plenario" id="b5">
+  <span class="eyebrow">Bloque 5 · Misión 4, todos juntos</span>
+  <h2>La letra chica</h2>
+  <p>La hacemos en el proyector. Ustedes dicen dónde buscar en la configuración y en las condiciones de uso:</p>
+  <div class="campo"><label for="m4a">¿Usa lo que le escribimos para mejorar la IA? ¿Se puede apagar?</label><input type="text" id="m4a"></div>
+  <div class="campo"><label for="m4b">¿Qué edad mínima pide?</label><input type="text" id="m4b"></div>
+  <div class="campo"><label for="m4c">¿Qué cambia entre usar una cuenta personal y una institucional? Si usamos cuenta personal, ¿qué cuidado hay que tener?</label><input type="text" id="m4c"></div>
+  <div class="pq"><span><b>Por qué:</b> lo que escribimos no desaparece al cerrar el chat.</span><span><b>Para qué:</b> armar los criterios para usarla con nuestros estudiantes.</span></div>
+</section>
+
+<section class="bloque" id="b6">
+  <span class="eyebrow">Bloque 6 · Misión 5</span>
+  <h2>Tu hipótesis</h2>
+  <p>Explicá en cinco líneas cómo creés que funciona la IA, como se lo explicarías a un estudiante. Usá lo que viste hoy. Después cargala en el segundo formulario del aula.</p>
+  <div class="campo"><label for="m5">Mi explicación</label><textarea id="m5" rows="6"></textarea><span class="nota" id="lineas">0 de 5 líneas</span></div>
+  <div class="pq"><span><b>Por qué:</b> explicar obliga a ordenar lo que observamos.</span><span><b>Para qué:</b> el lunes que viene la ponemos a prueba.</span></div>
+</section>
+
+<section class="bloque final">
+  <h2>Mi registro</h2>
+  <p class="nota">Junta todo lo que anotaste para pegarlo en el aula o en tu portafolio. Queda guardado en este celular mientras no borres los datos del navegador.</p>
+  <div><button type="button" id="armar">Armar y copiar mi registro</button></div>
+  <span class="estado" id="estado" aria-live="polite"></span>
+  <textarea id="salida" readonly aria-label="Registro armado"></textarea>
+</section>
+</div>
+
+<script>
+(function(){
+  var FRASES=["No por mucho madrugar…","1, 2, 4, 8, 16, …","La mejor clase que tuve fue la vez que…","Cuando un estudiante no entiende un tema, lo mejor es…","Mi profe de Física se llama…"];
+  var KEY="artesania-e1";
+  var datos={};
+  try{datos=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){datos={};}
+  function guardar(){try{localStorage.setItem(KEY,JSON.stringify(datos));}catch(e){}}
+
+  var cont=document.getElementById("frases");
+  FRASES.forEach(function(f,i){
+    var d=document.createElement("div");d.className="frase";
+    d.innerHTML='<span class="txt">'+f+'</span>'+
+      '<div class="prompt"><code id="p1_'+i+'">Completá esta frase con lo primero que se te ocurra: '+f+'</code><button type="button" data-copy="p1_'+i+'">Copiar</button></div>'+
+      '<div class="dos">'+
+      '<div class="campo"><label for="f'+i+'y">Lo que pusimos</label><input type="text" id="f'+i+'y"></div>'+
+      '<div class="campo"><label for="f'+i+'i">Lo que puso la IA</label><input type="text" id="f'+i+'i"></div></div>'+
+      '<label class="toggle"><input type="checkbox" id="f'+i+'c"> Alguien del grupo puso lo mismo que la IA</label>';
+    cont.appendChild(d);
+  });
+
+  function marcador(){
+    var ia=0,gr=0;
+    FRASES.forEach(function(f,i){
+      var c=document.getElementById("f"+i+"c"), ii=document.getElementById("f"+i+"i");
+      if(c.checked){ia++;} else if(ii.value.trim()){gr++;}
+    });
+    document.getElementById("ptsIA").textContent=ia;
+    document.getElementById("ptsGR").textContent=gr;
+  }
+  function lineas(){
+    var t=document.getElementById("m5").value.trim();
+    var n=t?t.split(/\n+/).length:0;
+    document.getElementById("lineas").textContent=n+" de 5 líneas";
+  }
+
+  var campos=document.querySelectorAll("input,textarea,select");
+  campos.forEach(function(el){
+    if(!el.id||el.id==="salida")return;
+    if(datos[el.id]!==undefined){ if(el.type==="checkbox"){el.checked=!!datos[el.id];} else {el.value=datos[el.id];} }
+    el.addEventListener(el.type==="checkbox"||el.tagName==="SELECT"?"change":"input",function(){
+      datos[el.id]=el.type==="checkbox"?el.checked:el.value; guardar(); marcador(); lineas();
+    });
+  });
+  marcador(); lineas();
+
+  function copiar(texto,ok){
+    function aviso(m){var e=document.getElementById("estado");e.textContent=m;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(texto).then(function(){ok&&ok();},function(){aviso("No se pudo copiar solo: seleccioná el texto y copialo.");});
+    } else { aviso("Seleccioná el texto y copialo."); }
+  }
+  document.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var t=document.getElementById(b.getAttribute("data-copy")).textContent;
+      copiar(t,function(){b.textContent="Copiado";setTimeout(function(){b.textContent="Copiar";},1500);});
+    });
+  });
+
+  function v(id){var e=document.getElementById(id);return e&&e.value.trim()?e.value.trim():"(sin completar)";}
+  document.getElementById("armar").addEventListener("click",function(){
+    var r=["ArtesanIA docente · Encuentro 1 · Mi registro","","Misión 1 · Predecí antes de preguntar"];
+    FRASES.forEach(function(f,i){
+      r.push("- "+f+" | Pusimos: "+v("f"+i+"y")+" | La IA: "+v("f"+i+"i")+(document.getElementById("f"+i+"c").checked?" | Coincidió":""));
+    });
+    r.push("Marcador: IA "+document.getElementById("ptsIA").textContent+" · Grupo "+document.getElementById("ptsGR").textContent,"",
+      "Misión 2 · Hacela equivocar","Pregunta: "+v("m2q"),"Afirmó: "+v("m2a"),"Por qué es falso: "+v("m2f"),"Duda: "+v("m2d"),"",
+      "Misión 3 · Misma pregunta, otra respuesta","Actividad · cambió: "+v("m3a1"),"Actividad · se mantuvo: "+v("m3a2"),
+      "Noticias · cambió: "+v("m3b1"),"Noticias · fuentes: "+v("m3b2"),"¿Buscó en internet?: "+v("m3c"),"",
+      "Misión 4 · La letra chica","Mejorar la IA / apagar: "+v("m4a"),"Edad mínima: "+v("m4b"),"Cuenta institucional: "+v("m4c"),"",
+      "Misión 5 · Mi explicación",v("m5"));
+    var texto=r.join("\n");
+    var s=document.getElementById("salida"); s.value=texto;
+    copiar(texto,function(){document.getElementById("estado").textContent="Copiado. Pegalo en el aula.";});
+    s.focus(); s.select();
+  });
+})();
+</script>
+
+</body></html>
